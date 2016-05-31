@@ -15,6 +15,7 @@ local.properties
 .classpath
 .settings/
 .loadpath
+.recommenders
 /Collection/.settings
 /Colleciton/.gitignore
 /Collection/bin
