@@ -14,6 +14,10 @@ public class Array {
     array = new Object[DEFAULT_CAPACITY];
   }
   
+  /**
+   * Create an Array with the specified capacity.
+   * @param capacity the initial capacity of the Array.
+   */
   public Array(int capacity) {
     this.capacity = capacity;
     size = 0;
@@ -41,6 +45,12 @@ public class Array {
     return false;
   }
   
+  /**
+   * Get the object at the specified index.
+   * @param index the index of the item to get.
+   * @return the object at the specified index.
+   * @throws Exception when an invalid index is accessed.
+   */
   public Object at(int index) throws Exception {
     if (index >= capacity || index < 0) {
       throw new Exception("Index out of bounds: " + index);
@@ -48,10 +58,19 @@ public class Array {
     return array[index];
   }
   
+  /**
+   * Insert an object at the end of the array.
+   * @param itemToInsert the object to insert into the array.
+   */
   public void insert(Object itemToInsert) {
     insert(itemToInsert, size);
   }
   
+  /**
+   * Insert an object at the specified index.
+   * @param itemToInsert the object to insert.
+   * @param indexToInsert the index to insert at.
+   */
   public void insert(Object itemToInsert, int indexToInsert) {
     if (indexToInsert >= capacity) {
       expandArray(indexToInsert);
@@ -62,6 +81,9 @@ public class Array {
     array[indexToInsert] = itemToInsert;
   }
   
+  /**
+   * Sets all elements in the Array to null.
+   */
   public void clear() {
     size = 0;
     for (int item = 0; item < capacity; ++item) {
@@ -69,6 +91,9 @@ public class Array {
     }
   }
   
+  /**
+   * Clears all elements from the Array and sets the size and capacity to the defaults.
+   */
   public void reset() {
     size = 0;
     capacity = DEFAULT_CAPACITY;
@@ -117,6 +142,10 @@ public class Array {
     return result;
   }
   
+  /**
+   * Expand the internal array until at least as large as the specified capacity.
+   * @param minimumCapacity the minimum capacity to expand the array to.
+   */
   private void expandArray(int minimumCapacity) {
     int newCapacity = capacity;
     while (newCapacity <= minimumCapacity) {
