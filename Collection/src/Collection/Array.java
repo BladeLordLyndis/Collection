@@ -20,17 +20,29 @@ public class Array {
     array = new Object[capacity];
   }
   
-  public int getSize() {
+  public boolean isEmpty() {
+    return size == 0;
+  }
+  
+  public int size() {
     return size;
   }
   
-  public int getCapacity() {
+  public int capacity() {
     return capacity;
   }
   
-  // TODO: Throw exception
+  public boolean contains(Object object) {
+    for (int item = 0; item < capacity; ++item) {
+      if (object.equals(array[item])) {
+        return true;
+      }
+    }
+    return false;
+  }
+  
   public Object at(int index) throws Exception {
-    if (index > capacity || index < 0) {
+    if (index >= capacity || index < 0) {
       throw new Exception("Index out of bounds: " + index);
     }
     return array[index];
@@ -41,13 +53,26 @@ public class Array {
   }
   
   public void insert(Object itemToInsert, int indexToInsert) {
-    if (indexToInsert > capacity) {
+    if (indexToInsert >= capacity) {
       expandArray(indexToInsert);
     }
     if (array[indexToInsert] == null) {
       ++size;
     }
     array[indexToInsert] = itemToInsert;
+  }
+  
+  public void clear() {
+    size = 0;
+    for (int item = 0; item < capacity; ++item) {
+      array[item] = null;
+    }
+  }
+  
+  public void reset() {
+    size = 0;
+    capacity = DEFAULT_CAPACITY;
+    array = new Object[capacity];
   }
   
   public String toString() {
@@ -63,9 +88,38 @@ public class Array {
     return arrayString.toString();
   }
   
+  public boolean equals(Array argArray) {
+    if (size != argArray.size()) {
+      return false;
+    }
+    for (int item = 0; item < capacity; item++) {
+      if (array[item] == null || argArray.array[item] == null) {
+        if (array[item] != argArray.array[item]) {
+          return false;
+        }
+      } else if (!array[item].equals(argArray.array[item])) {
+        return false;
+      }
+    }
+    return true;
+  }
+  
+  @Override
+  public int hashCode() {
+    int result = 17;
+    for (int item = 0; item < capacity; ++item) {
+      if (array[item] != null) {
+        result = 31 * item * result + array[item].hashCode();
+      } else {
+        result = 31 * item * result + 0;
+      }
+    }
+    return result;
+  }
+  
   private void expandArray(int minimumCapacity) {
     int newCapacity = capacity;
-    while (newCapacity < minimumCapacity) {
+    while (newCapacity <= minimumCapacity) {
       newCapacity *= DEFAULT_SCALE_FACTOR;
     }
 
@@ -74,23 +128,6 @@ public class Array {
     for(int item = 0; item < capacity; ++item) {
       array[item] = oldArray[item];
     }
+    capacity = newCapacity;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
