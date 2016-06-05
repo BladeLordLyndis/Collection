@@ -1,5 +1,8 @@
 package Collection;
 
+/**
+ * Array of Objects.
+ */
 public class Array {
   private static int DEFAULT_CAPACITY = 10;
   private static int DEFAULT_SCALE_FACTOR = 2;
@@ -24,6 +27,10 @@ public class Array {
     array = new Object[capacity];
   }
   
+  // TODO: copy constructor
+  
+  // TODO: clone method
+  
   public boolean isEmpty() {
     return size == 0;
   }
@@ -36,6 +43,11 @@ public class Array {
     return capacity;
   }
   
+  /**
+   * Determines whether the Array contains the specified object.
+   * @param object the object to search in the array.
+   * @return whether the Array contains the specified object.
+   */
   public boolean contains(Object object) {
     for (int item = 0; item < capacity; ++item) {
       if (object.equals(array[item])) {
